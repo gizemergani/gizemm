@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import pandas as pd
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-app = app.server
+server = app.server
 
 df = pd.read_excel('çalışan deneyimi dashboard veri(rev2).xlsx', engine='openpyxl')
 
@@ -152,4 +152,3 @@ def update_graphs(department):
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', port=8050)
-
