@@ -4,8 +4,9 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import pandas as pd
+from flask import Flask
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = flask.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 df = pd.read_excel('çalışan deneyimi dashboard veri(rev2).xlsx', engine='openpyxl')
