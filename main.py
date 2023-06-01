@@ -1,4 +1,3 @@
-from flask import Flask, render_template
 import dash
 from dash import dcc, html
 import dash_bootstrap_components as dbc
@@ -6,9 +5,8 @@ from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import pandas as pd
 
-server = Flask(__name__)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 df = pd.read_excel('çalışan deneyimi dashboard veri(rev2).xlsx', engine='openpyxl')
 
@@ -153,4 +151,5 @@ def update_graphs(department):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', port=8050)
+
