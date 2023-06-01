@@ -1,3 +1,4 @@
+from flask import Flask, render_template
 import dash
 from dash import dcc, html
 import dash_bootstrap_components as dbc
@@ -5,8 +6,9 @@ from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import pandas as pd
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = Flask(__name__)
 
+app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 df = pd.read_excel('çalışan deneyimi dashboard veri(rev2).xlsx', engine='openpyxl')
 
@@ -24,11 +26,7 @@ extra_columns = [
     "Yeni beceriler öğrenmeniz ve yaratıcılığınızı geliştirmeniz için size ne sıklıkla fırsatlar veriliyor?",
     "Şirketiniz başarısızlıkla nasıl başa çıkıyor? Bir öğrenme fırsatı olarak mı yoksa bir ceza kaynağı olarak mı görülüyor?",
     "Şirketinizde yaratıcılığı ve yeniliği engellediğini düşündüğünüz herhangi bir süreç veya politika var mı?",
-
-
 ]
-
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = dbc.Container([
     html.H1('Dashboard', className='text-center my-4'),
@@ -63,7 +61,6 @@ app.layout = dbc.Container([
         dbc.Col([dcc.Graph(id='project-graph')], width=6),
         dbc.Col([dcc.Graph(id='effect-graph')], width=6),
     ], align='center'),
-
 
     *[dbc.Row([dbc.Col([dcc.Graph(id=f'extra-graph-{i}')], width=12)]) for i in range(len(extra_columns))],
 ], fluid=True)
@@ -156,4 +153,4 @@ def update_graphs(department):
 
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', port=8050)
+    app.run_server(debug=True)
